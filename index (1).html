@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIS CORTOS :: Producciones</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #000080;
+      font-family: "Courier New", Courier, monospace;
+      color: #ffffff;
+      font-size: 13px;
+    }
+
+    ::-webkit-scrollbar { width: 16px; }
+    ::-webkit-scrollbar-track { background: #c0c0c0; }
+    ::-webkit-scrollbar-thumb { background: #808080; border: 2px solid #ffffff; }
+
+    .marquee-bar {
+      background: #000000;
+      color: #ffff00;
+      padding: 4px 0;
+      border-top: 2px solid #ff0000;
+      border-bottom: 2px solid #ff0000;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-bar marquee { font-size: 12px; letter-spacing: 1px; }
+
+    header {
+      background: linear-gradient(180deg, #000080 0%, #0000cd 50%, #000080 100%);
+      border-bottom: 3px solid #c0c0c0;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .site-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffff00;
+      text-shadow: 2px 2px #ff0000, 4px 4px #800000;
+      letter-spacing: 3px;
+      font-family: "Times New Roman", serif;
+    }
+
+    .site-subtitle {
+      font-size: 11px;
+      color: #00ffff;
+      margin-top: 4px;
+      letter-spacing: 2px;
+    }
+
+    .hit-counter { margin-top: 8px; font-size: 11px; color: #c0c0c0; }
+    .hit-counter span {
+      background: #000000;
+      color: #00ff00;
+      padding: 1px 6px;
+      border: 1px solid #00ff00;
+      font-family: "Courier New", monospace;
+      letter-spacing: 3px;
+    }
+
+    main { padding: 16px; background: #000080; }
+
+    .section-title {
+      background: linear-gradient(90deg, #000080, #0000ff, #000080);
+      border: 2px solid #c0c0c0;
+      color: #ffff00;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      font-family: "Times New Roman", serif;
+      text-align: center;
+    }
+
+    .films-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #d4d0c8;
+      color: #000000;
+      font-family: "Tahoma", sans-serif;
+      font-size: 12px;
+    }
+
+    .films-table thead tr { background: #000080; color: #ffffff; }
+    .films-table thead th {
+      padding: 4px 8px;
+      text-align: left;
+      border: 1px solid #808080;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .films-table tbody tr { border-bottom: 1px solid #808080; }
+    .films-table tbody tr:hover { background: #b0c4de; }
+    .films-table tbody tr:nth-child(even) { background: #c8c8c8; }
+    .films-table tbody tr:nth-child(even):hover { background: #b0c4de; }
+    .films-table td { padding: 5px 8px; border: 1px solid #808080; vertical-align: middle; }
+
+    .download-link {
+      color: #000080;
+      text-decoration: underline;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .download-link:hover { color: #ff0000; }
+    .download-link:visited { color: #800080; }
+    .download-link::before { content: "📥 "; font-size: 11px; }
+
+    .file-size { color: #808080; font-size: 10px; }
+
+    .status-new {
+      background: #ff0000;
+      color: #ffff00;
+      font-size: 9px;
+      padding: 1px 4px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .under-construction {
+      text-align: center;
+      padding: 10px;
+      margin-top: 10px;
+      border: 2px dashed #ffff00;
+      color: #ffff00;
+      font-size: 12px;
+    }
+
+    footer {
+      background: #c0c0c0;
+      border-top: 2px solid #808080;
+      padding: 6px 12px;
+      text-align: center;
+      font-family: "Tahoma", sans-serif;
+      font-size: 10px;
+      color: #000000;
+    }
+    footer a { color: #000080; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .blink { animation: blink 1s step-start infinite; }
+
+    .win-window {
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      background: #d4d0c8;
+      margin-bottom: 12px;
+    }
+
+    .win-titlebar {
+      background: linear-gradient(90deg, #000080, #1084d0);
+      padding: 3px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .win-title {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: bold;
+      font-family: "Tahoma", sans-serif;
+    }
+
+    .win-buttons { display: flex; gap: 2px; }
+    .win-btn {
+      width: 16px; height: 14px;
+      font-size: 9px; text-align: center; line-height: 14px;
+      background: #d4d0c8;
+      border-top: 1px solid #ffffff; border-left: 1px solid #ffffff;
+      border-right: 1px solid #808080; border-bottom: 1px solid #808080;
+      color: #000000; cursor: default;
+    }
+
+    .win-body { padding: 8px; }
+
+    .description-text {
+      font-family: "Tahoma", sans-serif;
+      font-size: 12px;
+      color: #000000;
+      line-height: 1.6;
+    }
+
+    .stars { color: #ffff00; letter-spacing: 2px; }
+  </style>
+</head>
+<body>
+
+  <div class="marquee-bar">
+    <marquee scrollamount="3">
+      ★ BIENVENIDO A MI PAGINA DE CORTOS ★ &nbsp;&nbsp;&nbsp; NUEVOS VIDEOS DISPONIBLES PARA DESCARGA &nbsp;&nbsp;&nbsp; COMPATIBLES CON WINDOWS MEDIA PLAYER Y QUICKTIME &nbsp;&nbsp;&nbsp; MEJOR VISTO EN INTERNET EXPLORER 6.0 · RESOLUCION 800x600 &nbsp;&nbsp;&nbsp; ★ GRACIAS POR VISITAR ★
+    </marquee>
+  </div>
+
+  <header>
+    <div class="site-title">:: MIS CORTOS ::</div>
+    <div class="site-subtitle">★ producciones independientes ★</div>
+    <div class="hit-counter">
+      Visitas: <span id="counter">004721</span>
+    </div>
+  </header>
+
+  <main>
+
+    <div class="win-window">
+      <div class="win-titlebar">
+        <span class="win-title">📁 Bienvenida - MisCortos.com</span>
+        <div class="win-buttons">
+          <div class="win-btn">_</div>
+          <div class="win-btn">□</div>
+          <div class="win-btn">✕</div>
+        </div>
+      </div>
+      <div class="win-body">
+        <p class="description-text">
+          <span class="stars">★ ★ ★</span>&nbsp;
+          Hola y bienvenido a mi página personal de cortometrajes.
+          Aquí podrás descargar todos mis cortos de forma <strong>gratuita</strong>.
+          Solo haz click en el enlace del corto que quieras y se descargará directamente en tu PC.
+          &nbsp;<span class="stars">★ ★ ★</span>
+        </p>
+        <p class="description-text" style="margin-top:6px; color:#808080; font-size:11px;">
+          Si tienes algún problema con la descarga, escríbeme al <a href="mailto:tucorreo@hotmail.com" style="color:#000080;">email</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="section-title">═══ 🎬 LISTADO DE CORTOS ═══</div>
+
+    <div class="win-window">
+      <div class="win-titlebar">
+        <span class="win-title">📂 cortos\ — archivos disponibles</span>
+        <div class="win-buttons">
+          <div class="win-btn">_</div>
+          <div class="win-btn">□</div>
+          <div class="win-btn">✕</div>
+        </div>
+      </div>
+      <div class="win-body" style="padding:0;">
+        <table class="films-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>TÍTULO</th>
+              <th>AÑO</th>
+              <th>DURACIÓN</th>
+              <th>FORMATO</th>
+              <th>TAMAÑO</th>
+              <th>DESCARGA</th>
+              <th>ESTADO</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- ========================================================
+                 CORTO 1 — edita los campos entre las flechas ← 
+                 Para añadir más cortos, copia el bloque <tr>...</tr>
+                 ======================================================== -->
+            <tr>
+              <td>01</td>
+              <td><strong>In the Mood for Chess</strong></td>  <!-- ← TÍTULO -->
+              <td>2024</td>                                     <!-- ← AÑO -->
+              <td>20 min</td>                                   <!-- ← DURACIÓN -->
+              <td>.MP4</td>                                     <!-- ← FORMATO -->
+              <td class="file-size">101 MB</td>                 <!-- ← TAMAÑO -->
+              <td>
+                <!-- ← ENLACE: cambia el `id=` por el ID de tu Google Drive -->
+                <a class="download-link"
+                   href="https://drive.google.com/uc?export=download&id=14uNuEpArjqpmeqKSepi63FrFXYN7z51Q"
+                   download="In_the_Mood_for_Chess.mp4">      <!-- ← NOMBRE DEL ARCHIVO AL DESCARGAR -->
+                  Descargar
+                </a>
+              </td>
+              <td><span class="status-new blink">NEW!</span></td>
+            </tr>
+
+            <!-- ========================================================
+                 CORTO 2 — cambia "Próximamente" por los datos reales
+                 cuando tengas el siguiente corto listo
+                 ======================================================== -->
+            <tr>
+              <td>02</td>
+              <td><strong>Título del corto 2</strong></td>     <!-- ← TÍTULO -->
+              <td>????</td>                                     <!-- ← AÑO -->
+              <td>?? min</td>                                   <!-- ← DURACIÓN -->
+              <td>.MP4</td>                                     <!-- ← FORMATO -->
+              <td class="file-size">— MB</td>                  <!-- ← TAMAÑO -->
+              <td>
+                <span style="color:#808080; font-size:11px; font-style:italic;">Próximamente...</span>
+              </td>
+              <td></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="win-window">
+      <div class="win-titlebar">
+        <span class="win-title">ℹ️ Información de descarga</span>
+        <div class="win-buttons">
+          <div class="win-btn">_</div>
+          <div class="win-btn">□</div>
+          <div class="win-btn">✕</div>
+        </div>
+      </div>
+      <div class="win-body">
+        <p class="description-text">
+          Al hacer click en "Descargar", el archivo se guardará automáticamente en tu carpeta de <strong>Descargas</strong>.
+          Los archivos están en formato MP4, compatible con <strong>VLC Media Player</strong>, Windows Media Player y QuickTime.
+          <br><br>
+          Si el archivo se abre en el navegador en vez de descargarse, haz <strong>click derecho → Guardar como...</strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="under-construction">
+      <span class="blink">🚧</span>&nbsp;
+      PAGINA EN CONSTRUCCION — MAS CORTOS PROXIMAMENTE
+      &nbsp;<span class="blink">🚧</span>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2025 MisCortos.com :: Todos los derechos reservados :: Hecho a mano con Notepad</p>
+    <p style="margin-top:2px;">
+      Mejor visto en <strong>Internet Explorer 6.0</strong> con resolución <strong>800x600</strong> &nbsp;|&nbsp;
+      <a href="mailto:tucorreo@hotmail.com">Contacto</a>
+    </p>
+  </footer>
+
+  <script>
+    let count = parseInt(localStorage.getItem('hits') || '4721');
+    count++;
+    localStorage.setItem('hits', count);
+    document.getElementById('counter').textContent = String(count).padStart(6, '0');
+  </script>
+
+</body>
+</html>
